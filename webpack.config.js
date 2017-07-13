@@ -14,6 +14,10 @@ module.exports = {
         test: /\.js$/,
         exclude: path.resolve(__dirname, "node_modules")
       },
+      {
+        use: ['style-loader', 'css-loader'],
+        test: /\.css$/,
+      }
     ]
   }
 };
