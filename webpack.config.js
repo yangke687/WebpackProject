@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var htmlWebpackPlugin = require('html-webpack-plugin');
 const VENDOR_LIBS = [
    'react',
    'lodash',
@@ -40,6 +41,11 @@ module.exports = {
     // not in both 'bundle.js' and 'vendor.js'
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
+    }),
+    // automatically maintain the <script>...</script> tags
+    // in index.html
+    new htmlWebpackPlugin({
+      template: 'src/index.html',
     }),
   ]
 };
