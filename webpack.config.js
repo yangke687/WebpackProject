@@ -20,7 +20,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: '[name].[chunkhash].js'
   },
   module: {
     rules: [
@@ -40,7 +40,9 @@ module.exports = {
     // such as React,Redux... only be included in 'vendor.js'
     // not in both 'bundle.js' and 'vendor.js'
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
+      // splitting some webpack runtime codes from vendor.js 
+      // into manifest.js
+      names: ['vendor', 'manifest'],
     }),
     // automatically maintain the <script>...</script> tags
     // in index.html
