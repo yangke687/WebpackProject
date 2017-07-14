@@ -1,11 +1,25 @@
 var webpack = require('webpack');
 var path = require('path');
+const VENDOR_LIBS = [
+   'react',
+   'lodash',
+   'redux',
+   'react-redux',
+   'react-dom',
+   'react-input-range',
+   'redux-form',
+   'redux-thunk',
+   'faker',
+];
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    bundle: './src/index.js',
+    vendor: VENDOR_LIBS,
+  },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -19,5 +33,13 @@ module.exports = {
         test: /\.css$/,
       }
     ]
-  }
+  },
+  plugins: [
+    // solve the issue of double-including modules
+    // such as React,Redux... only be included in 'vendor.js'
+    // not in both 'bundle.js' and 'vendor.js'
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+    }),
+  ]
 };
